@@ -1,0 +1,130 @@
+.appointments{
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 80px 15px;
+}
+.appointments > h2{
+    font-size: 35px;
+    margin-bottom: 50px;
+    text-align: center;
+    color: #0fcfca;
+}
+
+.appointmentsServices{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 60px 30px;
+}
+.singleAppointment{
+    text-align: center;
+    padding: 50px 10px;
+    box-shadow: 0 0 25px 0 #ddd;
+}
+.singleAppointment h3{
+    color: #0fcfca;
+    margin-bottom: 10px;
+}
+.singleAppointment h4{
+    margin-bottom: 10px;
+}
+.singleAppointment p{
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.popup{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    overflow: auto;
+    transition: .2s all ease;
+}
+    
+.popupContent{
+    width: 600px;
+    background-color: #fff;
+    box-shadow: 0 2rem 4rem rgba(#000, .2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: .3rem;
+    display: table;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3);
+    transition: .3s .1s all ease;
+    text-align: center;
+    padding: 30px 10px;
+}
+.popup:target{
+    opacity: 1;
+    visibility: visible;
+}
+.popup:target .popupContent{
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popupClose:link,
+.popupClose:visited{
+    color: #777;
+    text-decoration: none;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
+    line-height: 1;
+}
+
+.popupClose:hover,
+.popupClose:active{
+    color: #0fcfca;
+}
+
+.popupHeading{
+    margin-bottom: 30px;
+}
+.appointmentForm input, .appointmentForm select{
+    width: 90%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+}
+.appointmentForm select{
+    width: 100%;
+    padding: 14px;
+}
+
+.twoChild{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.twoChild > select{
+    width: 90% !important;
+}
+.twoChild > input{
+    width: 80% !important;
+}
+
+.threeChild{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.threeChild > select{
+    width: 87% !important;
+}
+.threeChild > input{
+    width: 72% !important;
+}

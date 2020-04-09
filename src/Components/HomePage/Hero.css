@@ -1,0 +1,23 @@
+.hero{
+    background-image: url('../../img/MaskGroup2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+
+    display: grid;
+    align-items: center;
+}
+
+.heroInner{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+}
+
+.half{
+    padding: 0 10px;
+}
+.half img{
+    width: 100%;
+}

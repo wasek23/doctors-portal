@@ -1,0 +1,11 @@
+.heroHeading{
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.heroIntro{
+    margin-bottom: 50px;
+    color: #b4b4b4;
+    width: 80%;
+}
