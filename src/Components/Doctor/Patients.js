@@ -49,9 +49,9 @@ const Patients = () => {
                                 <TableCell component="th" scope="row">{count++}</TableCell>
                                 <TableCell>{appointment.name}</TableCell>
                                 <TableCell>{appointment.gender}</TableCell>
-                                <TableCell align="center">{appointment.age}</TableCell>
-                                <TableCell align="center">{appointment.weight}</TableCell>
-                                <TableCell align="center">{appointment.phone}</TableCell>
+                                <TableCell>{appointment.age}</TableCell>
+                                <TableCell>{appointment.weight} kg</TableCell>
+                                <TableCell>{appointment.phone}</TableCell>
                                 <TableCell><p style={{ maxWidth: "240px" }}>{appointment.date}</p></TableCell>
                             </TableRow>
                             )

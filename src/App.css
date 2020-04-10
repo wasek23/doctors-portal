@@ -34,3 +34,67 @@ a {
 .colorPrimary{
     color: #0fcfca;
 }
+
+/* Popup */
+.popup{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    overflow: auto;
+    transition: .2s all ease;
+}
+    
+.popupContent{
+    width: 600px;
+    background-color: #fff;
+    box-shadow: 0 2rem 4rem rgba(#000, .2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: .3rem;
+    display: table;
+    overflow: hidden;
+    position: relative;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3);
+    transition: .3s .1s all ease;
+    text-align: center;
+    padding: 30px 10px;
+}
+.popup:target{
+    opacity: 1;
+    visibility: visible;
+}
+.popup:target .popupContent{
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popupClose:link,
+.popupClose:visited{
+    color: #777;
+    text-decoration: none;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1;
+    line-height: 1;
+}
+
+.popupClose:hover,
+.popupClose:active{
+    color: #0fcfca;
+}
+
+.popupHeading{
+    margin-bottom: 30px;
+}

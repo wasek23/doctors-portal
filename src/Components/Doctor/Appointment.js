@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import Calender from './Calender';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,13 +8,14 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import StatusUpdate from './StatusUpdate';
 
 const Appointment = () => {
     // Calender
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const handleDateChange = date => {
-        setSelectedDate(date);
-    };
+    const [date, setDate] = useState();
+    const dateHandler = (date) => {
+        setDate(date);
+    }
 
     // Current Appointment by Date
     const [appointments, setAppointments] = useState([]);
@@ -25,7 +25,7 @@ const Appointment = () => {
         });
     }, []);
 
-    const currentAppointments = appointments.filter(appoint => appoint.date === selectedDate);
+    const currentAppointments = appointments.filter(appoint => appoint.date === date);
 
     const useStyles = makeStyles({
         table: {
@@ -40,12 +40,15 @@ const Appointment = () => {
 
             <div className="appointment" style={{ marginTop: "35px" }}>
                 <div className="calender">
-                    <Calendar onChange={handleDateChange} value={selectedDate} />
+                    <Calender dateHandler={dateHandler}></Calender>
                 </div>
 
                 <div className="appointmentData">
                     <TableContainer component={Paper}>
-                        <h3 className="colorPrimary" style={{ margin: "15px" }}>Appointments</h3>
+                        <div className="flex" style={{ margin: "15px" }}>
+                            <h3 className="colorPrimary">Appointments</h3>
+                            <h4 className="colorPrimary">{date}</h4>
+                        </div>
                         <Table className={classes.table} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
@@ -59,9 +62,11 @@ const Appointment = () => {
                                     currentAppointments.map(appointment => <TableRow key={appointment.name}>
                                         <TableCell>{appointment.name}</TableCell>
                                         <TableCell>{appointment.time}</TableCell>
-                                        {
-                                            appointment.action === 'cancelled' ? <TableCell align="center"><button className='btn bgRed'>Cancelled</button></TableCell> : appointment.action === 'approved' ? <TableCell align="center"><button className='btn bgGreen'>Approved</button></TableCell> : <TableCell align="center"><button className='btn bgInfo'>Pending</button></TableCell>
-                                        }
+                                        <TableCell align="center">{
+                                            appointment.status === 'cancelled' ? <a href={"#status" + appointment._id} className='btn bgRed'>Cancelled</a> : appointment.status === 'approved' ? <a href={"#status" + appointment._id} className='btn bgGreen'>Approved</a> : <a href={"#status" + appointment._id} className='btn bgInfo'>Pending</a>
+                                        }</TableCell>
+
+                                        <StatusUpdate id={"status" + appointment._id} appointment={appointment}></StatusUpdate>
                                     </TableRow>
                                     )
                                 }

@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import './Appointment.css';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import Calender from './Calender';
 import MaskGroup1 from '../../img/MaskGroup1.png';
 
 const Appointment = () => {
     // Calender
-    const [selectedDate, setSelectedDate] = useState(new Date());
-    const handleDateChange = date => {
-        setSelectedDate(date);
-    };
+    const [date, setDate] = useState();
+    const dateHandler = (date) => {
+        setDate(date);
+    }
 
     // Appointments
     const services = [
-        { id: "TO1", target: "#TO1", name: "Teeth Orthodontics", time: "8.00 AM", available: 10 },
-        { id: "CD", target: "#CD", name: "Cosmetics Dentistry", time: "9.00 AM", available: 1 },
-        { id: "TC", target: "#TC", name: "Teeth Cleaning", time: "10.00 AM", available: 8 },
-        { id: "CP", target: "#CP", name: "Cavity Protection", time: "11.00 AM", available: 4 },
-        { id: "TO2", target: "#TO2", name: "Teeth Orthodontics", time: "3.00 PM", available: 9 },
-        { id: "TO3", target: "#TO3", name: "Teeth Orthodontics", time: "8.00 PM", available: 2 }
+        { id: "TO1", name: "Teeth Orthodontics", time: "8.00 AM", available: 10 },
+        { id: "CD", name: "Cosmetics Dentistry", time: "9.00 AM", available: 1 },
+        { id: "TC", name: "Teeth Cleaning", time: "10.00 AM", available: 8 },
+        { id: "CP", name: "Cavity Protection", time: "11.00 AM", available: 4 },
+        { id: "TO2", name: "Teeth Orthodontics", time: "3.00 PM", available: 9 },
+        { id: "TO3", name: "Teeth Orthodontics", time: "8.00 PM", available: 2 }
     ];
 
     return (
@@ -26,7 +25,7 @@ const Appointment = () => {
             <section className="hero">
                 <div className="heroInner container">
                     <div className="half">
-                        <Calendar onChange={handleDateChange} value={selectedDate} />
+                        <Calender dateHandler={dateHandler}></Calender>
                     </div>
                     <div className="half">
                         <img src={MaskGroup1} alt="" />
@@ -38,7 +37,7 @@ const Appointment = () => {
                 <h2>Available Appointments</h2>
 
                 <div className="appointmentsServices">
-                    {services.map(ser => <AppointmentsServices service={ser} selectedDate={selectedDate}></AppointmentsServices>)}
+                    {services.map(ser => <AppointmentsServices service={ser} date={date}></AppointmentsServices>)}
                 </div>
             </section>
         </div>
@@ -48,7 +47,7 @@ const Appointment = () => {
 export default Appointment;
 
 function AppointmentsServices(props) {
-    const { id, target, name, time, available } = props.service;
+    const { id, name, time, available } = props.service;
 
     // Post data to the server
     const btnAddAppointment = () => {
@@ -95,7 +94,7 @@ function AppointmentsServices(props) {
                 <h3>{name}</h3>
                 <h4>{time}</h4>
                 <p>{available} Space available</p>
-                <a href={target} className="btn">Book Appointment</a>
+                <a href={"#" + id} className="btn">Book Appointment</a>
             </div>
 
             <div className="popup" id={id}>
@@ -133,10 +132,11 @@ function AppointmentsServices(props) {
                                 <option value="7.00 PM">7.00 PM</option>
                                 <option value="8.00 PM">8.00 PM</option>
                             </select>
-                            <input type="text" className="input" id={id + "date"} placeholder="Date" value={props.selectedDate} /><br />
+                            <input type="text" disabled className="input" id={id + "date"} placeholder="Date" value={props.date} /><br />
                         </div><br />
-
-                        <button className="btn" id={id + "send"} onClick={btnAddAppointment}>Send</button>
+                        {
+                            props.date ? <button className="btn" id={id + "send"} onClick={btnAddAppointment}>Send</button> : <p style={{ color: "red" }}>Please select a upcoming day</p>
+                        }
                     </div>
 
                     <p id="successMsg" style={{ color: "green", display: "none", marginTop: "10px" }}>Appointment added successfully</p>

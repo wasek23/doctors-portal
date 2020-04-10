@@ -79,10 +79,30 @@
     font-weight: bold;
     cursor: pointer;
 }
+.doctorPage textarea{
+    width: 95%;
+    height: 200px;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+.doctorPage select{
+    min-width: 200px;
+    padding: 8px 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
 
 /* Appointment Page */
 .appointmentPage .appointment{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px;
+}
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
