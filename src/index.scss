@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--green: #19d3ae;
+	--blue: #0fcfec;
+	--gray: #3a4256;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+// Utils
+.container {
+	width: 100%;
+	max-width: 1240px;
+	margin: 0 auto;
+}
+
+.containerFluid {
+	width: 100%;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.btn {
+	font-size: 14px;
+	font-weight: 700;
+	line-height: 19px;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+	background: linear-gradient(90deg, var(--green) -22.5%, var(--blue) 120.83%);
+	display: inline-block;
+	padding: 15px;
+	border: none;
+	border-radius: 8px;
+	outline: 0;
+	cursor: pointer;
+
+	&:hover,
+	&:focus,
+	&:active {
+		background: linear-gradient(90deg, var(--green) -22.5%, var(--blue) 120.83%);
+	}
+
+	&.full {
+		width: 100%;
+	}
+
+	&.gray {
+		background: var(--gray);
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: var(--gray);
+		}
+	}
+
+	&.white {
+		color: var(--gray);
+		background: white;
+
+		&:hover,
+		&:focus,
+		&:active {
+			color: var(--gray);
+			background: white;
+		}
+	}
+}
