@@ -32,8 +32,8 @@ const Services = () => {
 
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 				{services?.map((service, index) => {
-					const { image, name, description } = service;
-					return <div className='text-center pt-11 pb-8 px-12 rounded-2xl shadow-lg'>
+					const { _id, image, name, description } = service;
+					return <div key={_id} className='text-center pt-11 pb-8 px-12 rounded-2xl shadow-lg'>
 						<img className='inline-block mb-8' src={image} alt={name} />
 
 						<h3 className='text-xl font-semibold text-[var(--gray)] mb-4'>{name}</h3>

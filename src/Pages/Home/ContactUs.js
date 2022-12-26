@@ -8,15 +8,15 @@ const ContactUs = () => {
 
 			<form>
 				<div className='mb-5'>
-					<input className='input w-full' type='email' id='email' name='email' placeholder='Email Address' />
+					<input className='input w-full focus:outline-none' type='email' id='email' name='email' placeholder='Email Address' />
 				</div>
 
 				<div className='mb-5'>
-					<input className='input w-full' type='text' id='subject' name='subject' placeholder='Subject' />
+					<input className='input w-full focus:outline-none' type='text' id='subject' name='subject' placeholder='Subject' />
 				</div>
 
 				<div className='mb-5'>
-					<textarea className='textarea w-full h-36' id='message' name='message' placeholder='Your Message' />
+					<textarea className='textarea w-full h-36 focus:outline-none' id='message' name='message' placeholder='Your Message' />
 				</div>
 
 				<div className='text-center'>

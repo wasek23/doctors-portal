@@ -3,7 +3,7 @@ import Infos from './Infos';
 import Services from './Services';
 import CTA1 from './CTA1';
 import CTA2 from './CTA2';
-import Testimonial from './Testimonial';
+import Testimonials from './Testimonials';
 import ContactUs from './ContactUs';
 
 const Home = () => {
@@ -13,7 +13,7 @@ const Home = () => {
 		<Services />
 		<CTA1 />
 		<CTA2 />
-		<Testimonial />
+		<Testimonials />
 		<ContactUs />
 	</main>
 }

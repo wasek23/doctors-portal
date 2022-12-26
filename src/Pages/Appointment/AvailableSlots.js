@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { format } from 'date-fns';
 
 import Title from './Title';
+import { inputClassName } from '../../utils/classNames';
 
 const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, selectedServiceSlot, setSelectedServiceSlot }) => {
 	const modalRef = useRef(null);
@@ -64,23 +65,23 @@ const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, se
 
 							<form onSubmit={onBookService}>
 								<div className='mb-5'>
-									<input className='input w-full border border-[#cfcfcf]' type='text' id='date' name='date' value={format(selectedDate, 'PP')} disabled />
+									<input className={inputClassName} type='text' id='date' name='date' value={format(selectedDate, 'PP')} disabled />
 								</div>
 
 								<div className='mb-5'>
-									<input className='input w-full border border-[#cfcfcf]' type='text' id='serviceSlot' name='serviceSlot' value={selectedServiceSlot} disabled />
+									<input className={inputClassName} type='text' id='serviceSlot' name='serviceSlot' value={selectedServiceSlot} disabled />
 								</div>
 
 								<div className='mb-5'>
-									<input className='input w-full border border-[#cfcfcf]' type='text' id='name' name='name' placeholder='Full Name' />
+									<input className={inputClassName} type='text' id='name' name='name' placeholder='Full Name' />
 								</div>
 
 								<div className='mb-5'>
-									<input className='input w-full border border-[#cfcfcf]' type='text' id='phone' name='phone' placeholder='Phone Number' />
+									<input className={inputClassName} type='text' id='phone' name='phone' placeholder='Phone Number' />
 								</div>
 
 								<div className='mb-5'>
-									<input className='input w-full border border-[#cfcfcf]' type='email' id='email' name='email' placeholder='Email' />
+									<input className={inputClassName} type='email' id='email' name='email' placeholder='Email' />
 								</div>
 
 								<div className='text-center'>

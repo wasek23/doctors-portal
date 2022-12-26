@@ -4,7 +4,7 @@ import people2 from '../../assets/images/people2.png';
 import people3 from '../../assets/images/people3.png';
 import quoteIcon from '../../assets/icons/quote.svg';
 
-const Testimonial = () => {
+const Testimonials = () => {
 	const testimonials = [
 		{
 			_id: 1,
@@ -39,8 +39,8 @@ const Testimonial = () => {
 
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 				{testimonials?.map((service, index) => {
-					const { photo, name, location, text } = service;
-					return <div className='py-9 px-7 rounded-2xl shadow-lg'>
+					const { _id, photo, name, location, text } = service;
+					return <div key={_id} className='py-9 px-7 rounded-2xl shadow-lg'>
 						<p className='text-base text-black mb-8' dangerouslySetInnerHTML={{ __html: text }} />
 
 						<div className='flex items-center gap-5'>
@@ -57,4 +57,4 @@ const Testimonial = () => {
 		</div>
 	</section>
 }
-export default Testimonial;
+export default Testimonials;

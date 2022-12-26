@@ -77,6 +77,20 @@ body {
 		&:active {
 			background: var(--gray);
 		}
+
+		&.alt {
+			color: var(--gray);
+			background: transparent;
+			border: 1px solid var(--gray);
+
+			&:hover,
+			&:focus,
+			&:active {
+				color: var(--gray);
+				background: transparent;
+				border: 1px solid var(--gray);
+			}
+		}
 	}
 
 	&.white {

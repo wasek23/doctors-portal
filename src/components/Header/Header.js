@@ -1,12 +1,40 @@
-import { Link, NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Header = () => {
-	const navLinkClassName = ({ isActive }) => isActive ? 'btn gray' : 'btn white'
+	const { user, logoutUser } = useContext(AuthContext);
+
+	const navigate = useNavigate();
+
+	const navLinkClassName = ({ isActive }) => isActive ? 'btn gray' : 'btn white';
+
+	const onLogout = () => {
+		logoutUser()
+			.then(() => {
+				toast('User logged out!');
+				navigate('/logout');
+			});
+	}
 
 	const menu = <>
 		<li><NavLink className={navLinkClassName} to='/'>Home</NavLink></li>
 		<li><NavLink className={navLinkClassName} to='/appointment'>Appointment</NavLink></li>
-		<li><NavLink className={navLinkClassName} to='/login'>Login</NavLink></li>
+		{user?.uid ? <>
+			<li><NavLink className={navLinkClassName} to='/dashboard'>Dashboard</NavLink></li>
+
+			{user?.displayName ? <li>
+				<button className='btn white hover:gray'>
+					{user.displayName}
+				</button>
+				<ul className='p-1 bg-base-100'>
+					<li><button className='btn gray' onClick={onLogout}>Logout</button></li>
+				</ul>
+			</li> : <li><button className='btn white hover:gray' onClick={onLogout}>Logout</button></li>}
+		</> :
+			<li><NavLink className={navLinkClassName} to='/login'>Login</NavLink></li>}
 	</>;
 
 	return <header className='mainHeader'>
