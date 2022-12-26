@@ -24,13 +24,23 @@ body {
 .container {
 	width: 100%;
 	max-width: 1240px;
+	padding: 0 15px;
 	margin: 0 auto;
 }
 
 .containerFluid {
 	width: 100%;
 	max-width: 1400px;
+	padding: 0 15px;
 	margin: 0 auto;
+}
+
+.bgPrimary {
+	background: linear-gradient(90deg, var(--green) -40%, var(--blue) 139%);
+}
+
+.bgSecondary {
+	background: var(--gray);
 }
 
 .btn {
@@ -79,5 +89,16 @@ body {
 			color: var(--gray);
 			background: white;
 		}
+	}
+
+	&.close {
+		width: 48px;
+		height: 48px;
+		line-height: 100%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		border-radius: 50%;
 	}
 }
