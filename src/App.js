@@ -1,15 +1,20 @@
 import { RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Toaster } from 'react-hot-toast';
 import 'react-day-picker/dist/style.css';
 
 import './App.scss';
 import router from './router/router';
 import AuthProvider from './contexts/AuthProvider';
-import { Toaster } from 'react-hot-toast';
+
+const queryClient = new QueryClient();
 
 const App = () => {
-	return <AuthProvider>
-		<RouterProvider router={router} />;
-		<Toaster />
-	</AuthProvider>
+	return <QueryClientProvider client={queryClient}>
+		<AuthProvider>
+			<RouterProvider router={router} />;
+			<Toaster />
+		</AuthProvider>
+	</QueryClientProvider>
 }
 export default App;

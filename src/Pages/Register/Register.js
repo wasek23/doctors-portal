@@ -1,17 +1,26 @@
 import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 import PopupLogin from '../../components/PopupLogin/PopupLogin';
 import { inputClassName } from '../../utils/classNames';
 import { toast } from 'react-hot-toast';
+import { saveUserToDB } from '../../utils/functions';
 
 const Register = () => {
 	const { register, formState: { errors }, handleSubmit } = useForm();
 	const { createUser, updateUser } = useContext(AuthContext);
+	const navigate = useNavigate();
 
+	const [createdUserEmail, setCreatedUserEmail] = useState();
+	const token = useToken(createdUserEmail);
 	const [error, setError] = useState('');
+
+	if (token) {
+		navigate('/');
+	}
 
 	const onRegister = data => {
 		const { name, email, password } = data;
@@ -22,6 +31,11 @@ const Register = () => {
 					.then(res => {
 						setError('');
 						toast('User created successfully!');
+
+						// Save user to database
+						saveUserToDB(name, email).then(() => {
+							setCreatedUserEmail(email);
+						});
 					})
 					.catch(err => setError(err?.message));
 			})

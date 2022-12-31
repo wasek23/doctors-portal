@@ -1,10 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import { format } from 'date-fns';
+import { toast } from 'react-hot-toast';
 
+import { AuthContext } from '../../contexts/AuthProvider';
 import Title from './Title';
 import { inputClassName } from '../../utils/classNames';
+import { serverLink } from '../../utils/links';
 
-const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, selectedServiceSlot, setSelectedServiceSlot }) => {
+const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, selectedServiceSlot, setSelectedServiceSlot, refetch }) => {
+	const { user } = useContext(AuthContext)
+
 	const modalRef = useRef(null);
 
 	if (!selectedDate || !selectedService) {
@@ -12,7 +17,7 @@ const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, se
 	}
 
 	const currentService = appointmentServices.find(s => s._id === selectedService);
-	const { name, slots } = currentService;
+	const { name: serviceName, slots } = currentService;
 
 
 	const onBookService = e => {
@@ -24,23 +29,38 @@ const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, se
 		const email = form.email.value;
 
 		const booking = {
-			appointmentDate: selectedDate,
-			service: selectedService,
+			appointmentDate: format(selectedDate, 'PP'),
+			serviceId: selectedService,
+			serviceName: serviceName,
 			serviceSlot: selectedServiceSlot,
 			name,
 			phone,
 			email
 		}
 
-		console.log(booking);
-		// Reset
-		form.reset();
-		modalRef.current.checked = false;
+		fetch(`${serverLink}/bookings`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(booking)
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.acknowledged) {
+					form.reset();
+					modalRef.current.checked = false;
+					toast.success('Booking confirmed!');
+					refetch();
+				} else {
+					toast.error(data.message)
+				}
+			});
 	}
 
 	return <section className='mt-24'>
 		<div className='containerFluid'>
-			<Title className='mb-14' title={`Available slots for ${name}.`} />
+			<Title className='mb-14' title={`Available slots for ${serviceName}.`} />
 
 			{0 === slots?.length ?
 				<p className='text-xl text-center text-red-500'>No slots available!</p> :
@@ -61,7 +81,7 @@ const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, se
 					<div className='modal'>
 						<div className='modal-box relative'>
 							<label htmlFor='bookingModal' className='btn gray close text-[#8391ad] absolute right-2 top-2'>✕</label>
-							<h3 className='text-xl font-semibold mb-6'>{name}</h3>
+							<h3 className='text-xl font-semibold mb-6'>{serviceName}</h3>
 
 							<form onSubmit={onBookService}>
 								<div className='mb-5'>
@@ -73,7 +93,7 @@ const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, se
 								</div>
 
 								<div className='mb-5'>
-									<input className={inputClassName} type='text' id='name' name='name' placeholder='Full Name' />
+									<input className={inputClassName} type='text' id='name' name='name' placeholder='Full Name' defaultValue={user?.displayName} disabled />
 								</div>
 
 								<div className='mb-5'>
@@ -81,7 +101,7 @@ const AvailableSlots = ({ selectedDate, appointmentServices, selectedService, se
 								</div>
 
 								<div className='mb-5'>
-									<input className={inputClassName} type='email' id='email' name='email' placeholder='Email' />
+									<input className={inputClassName} type='email' id='email' name='email' placeholder='Email' defaultValue={user?.email} disabled />
 								</div>
 
 								<div className='text-center'>

@@ -1,8 +1,9 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 import PopupLogin from '../../components/PopupLogin/PopupLogin';
 import { inputClassName } from '../../utils/classNames';
 import { toast } from 'react-hot-toast';
@@ -13,10 +14,16 @@ const Login = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const [email, setEmail] = useState('');
+	const [createdUserEmail, setCreatedUserEmail] = useState('');
+	const token = useToken(createdUserEmail);
 	const [error, setError] = useState('');
-	const emailRef = useRef(null);
 
 	const from = location.state?.from?.pathname || '/';
+
+	if (token) {
+		navigate(from, { replace: true });
+	}
 
 	const onLogin = data => {
 		const { email, password } = data;
@@ -27,8 +34,7 @@ const Login = () => {
 
 				setError('');
 				toast('User logged in!');
-
-				navigate(from, { replace: true });
+				setCreatedUserEmail(email);
 
 				// } else {
 				// 	logout();
@@ -39,7 +45,6 @@ const Login = () => {
 	}
 
 	const onForgotPassword = () => {
-		const email = emailRef?.current?.value;
 		if (email) {
 			passwordReset(email)
 				.then(() => {
@@ -58,7 +63,7 @@ const Login = () => {
 				<div>
 					<label htmlFor='email' className='inline-block pl-1 mb-1'>Email</label>
 
-					<input type='email' id='email' className={inputClassName} {...register('email', { required: 'Email is required' })} ref={emailRef} />
+					<input type='email' id='email' className={inputClassName} {...register('email', { required: 'Email is required' })} onChange={e => setEmail(e.target.value)} />
 					{errors.email && <ErrorMessage>{errors.email?.message}</ErrorMessage>}
 				</div>
 

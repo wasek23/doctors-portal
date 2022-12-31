@@ -1,13 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import Main from '../layouts/Main';
-import Admin from '../layouts/Admin';
+import PrivateRoute from './PrivateRoute';
+import DashboardLayout from '../layouts/DashboardLayout';
+import AdminRoute from './AdminRoute';
+import AdminLayout from '../layouts/AdminLayout';
 import Home from '../Pages/Home/Home';
 import Appointment from '../Pages/Appointment/Appointment';
-import Dashboard from '../Pages/Dashboard/Dashboard';
 import Register from '../Pages/Register/Register';
 import Login from '../Pages/Login/Login';
-import PrivateRoute from './PrivateRoute';
+import Dashboard from '../Pages/Dashboard/Dashboard';
+import MyAppointments from '../Pages/Dashboard/MyAppointments/MyAppointments';
+import Admin from '../Pages/Admin/Admin';
+import AllUsers from '../Pages/Admin/AllUsers/AllUsers';
 
 const router = createBrowserRouter([
 	{
@@ -33,15 +38,35 @@ const router = createBrowserRouter([
 		]
 	},
 	{
-		path: '/',
-		element: <Admin />,
+		path: '/dashboard',
+		element: <PrivateRoute>
+			<DashboardLayout />
+		</PrivateRoute>,
 		children: [
 			{
 				path: '/dashboard',
-				element: <PrivateRoute>
-					<Dashboard />
-				</PrivateRoute>
-			}
+				element: <Dashboard />
+			},
+			{
+				path: '/dashboard/my-appointments',
+				element: <MyAppointments />,
+			},
+		]
+	},
+	{
+		path: '/admin',
+		element: <AdminRoute>
+			<AdminLayout />
+		</AdminRoute>,
+		children: [
+			{
+				path: '/admin',
+				element: <Admin />
+			},
+			{
+				path: '/admin/all-users',
+				element: <AllUsers />,
+			},
 		]
 	}
 ]);
