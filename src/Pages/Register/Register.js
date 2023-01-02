@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 import PopupLogin from '../../components/PopupLogin/PopupLogin';
 import { inputClassName } from '../../utils/classNames';
-import { toast } from 'react-hot-toast';
 import { saveUserToDB } from '../../utils/functions';
 
 const Register = () => {

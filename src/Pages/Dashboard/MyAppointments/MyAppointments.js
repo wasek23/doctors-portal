@@ -15,7 +15,7 @@ const MyAppointments = () => {
 					authorization: `Bearer ${localStorage.getItem('accessToken')}`
 				}
 			});
-			const data = res.json();
+			const data = await res.json();
 			return data;
 		}
 	});
@@ -48,7 +48,7 @@ const MyAppointments = () => {
 								<td>{appointmentDate}</td>
 								<td>{serviceSlot}</td>
 							</tr>
-						}) : <tr></tr>}
+						}) : <tr />}
 					</tbody>
 				</table>
 			</div>

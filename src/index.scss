@@ -8,6 +8,7 @@
 	--green: #19d3ae;
 	--blue: #0fcfec;
 	--gray: #3a4256;
+	--red: #e11244;
 }
 
 * {
@@ -89,6 +90,30 @@ body {
 				color: var(--gray);
 				background: transparent;
 				border: 1px solid var(--gray);
+			}
+		}
+	}
+
+	&.red {
+		background: var(--red);
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: var(--red);
+		}
+
+		&.alt {
+			color: var(--red);
+			background: transparent;
+			border: 1px solid var(--red);
+
+			&:hover,
+			&:focus,
+			&:active {
+				color: var(--red);
+				background: transparent;
+				border: 1px solid var(--red);
 			}
 		}
 	}

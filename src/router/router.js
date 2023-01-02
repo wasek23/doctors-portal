@@ -13,6 +13,8 @@ import Dashboard from '../Pages/Dashboard/Dashboard';
 import MyAppointments from '../Pages/Dashboard/MyAppointments/MyAppointments';
 import Admin from '../Pages/Admin/Admin';
 import AllUsers from '../Pages/Admin/AllUsers/AllUsers';
+import AddDoctor from '../Pages/Admin/AddDoctor/AddDoctor';
+import ManageDoctors from '../Pages/Admin/ManageDoctors/ManageDoctors';
 
 const router = createBrowserRouter([
 	{
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
 			{
 				path: '/admin/all-users',
 				element: <AllUsers />,
+			},
+			{
+				path: '/admin/add-doctor',
+				element: <AddDoctor />,
+			},
+			{
+				path: '/admin/manage-doctors',
+				element: <ManageDoctors />,
 			},
 		]
 	}

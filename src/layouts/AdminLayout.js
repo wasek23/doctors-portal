@@ -8,6 +8,8 @@ const AdminLayout = () => {
 
 	const menuItems = <>
 		<li><NavLink className={navLinkClassName} to='/admin/all-users'>All Users</NavLink></li>
+		<li><NavLink className={navLinkClassName} to='/admin/add-doctor'>Add a Doctor</NavLink></li>
+		<li><NavLink className={navLinkClassName} to='/admin/manage-doctors'>Manage Doctors</NavLink></li>
 	</>
 
 	return <>

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
@@ -17,9 +17,11 @@ const PopupLogin = ({ setError }) => {
 	const [createdUserEmail, setCreatedUserEmail] = useState();
 	const token = useToken(createdUserEmail);
 
-	if (token) {
-		navigate(from, { replace: true });
-	}
+	useEffect(() => {
+		if (token) {
+			navigate(from, { replace: true });
+		}
+	}, [token, navigate, from])
 
 	const onPopupLogin = () => {
 		popupLogin(googleProvider)
