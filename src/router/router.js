@@ -15,11 +15,15 @@ import Admin from '../Pages/Admin/Admin';
 import AllUsers from '../Pages/Admin/AllUsers/AllUsers';
 import AddDoctor from '../Pages/Admin/AddDoctor/AddDoctor';
 import ManageDoctors from '../Pages/Admin/ManageDoctors/ManageDoctors';
+import Payment from '../Pages/Dashboard/Payment/Payment';
+import DisplayError from '../components/DisplayError/DisplayError';
+import { serverLink } from '../utils/links';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Main />,
+		errorElement: <DisplayError />,
 		children: [
 			{
 				path: '/',
@@ -44,6 +48,7 @@ const router = createBrowserRouter([
 		element: <PrivateRoute>
 			<DashboardLayout />
 		</PrivateRoute>,
+		errorElement: <DisplayError />,
 		children: [
 			{
 				path: '/dashboard',
@@ -51,7 +56,12 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/dashboard/my-appointments',
-				element: <MyAppointments />,
+				element: <MyAppointments />
+			},
+			{
+				path: '/dashboard/payment/:id',
+				element: <Payment />,
+				loader: ({ params }) => fetch(`${serverLink}/bookings/${params.id}`)
 			},
 		]
 	},
@@ -60,6 +70,7 @@ const router = createBrowserRouter([
 		element: <AdminRoute>
 			<AdminLayout />
 		</AdminRoute>,
+		errorElement: <DisplayError />,
 		children: [
 			{
 				path: '/admin',
@@ -67,15 +78,15 @@ const router = createBrowserRouter([
 			},
 			{
 				path: '/admin/all-users',
-				element: <AllUsers />,
+				element: <AllUsers />
 			},
 			{
 				path: '/admin/add-doctor',
-				element: <AddDoctor />,
+				element: <AddDoctor />
 			},
 			{
 				path: '/admin/manage-doctors',
-				element: <ManageDoctors />,
+				element: <ManageDoctors />
 			},
 		]
 	}

@@ -18,6 +18,7 @@ const Header = () => {
 		logoutUser()
 			.then(() => {
 				toast('User logged out!');
+				localStorage.removeItem('accessToken');
 				navigate('/login');
 			});
 	}

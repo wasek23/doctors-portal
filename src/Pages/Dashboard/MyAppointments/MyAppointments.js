@@ -1,7 +1,9 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useServiceData from '../../../hooks/useServiceData';
 import { serverLink } from '../../../utils/links';
 
 const MyAppointments = () => {
@@ -35,20 +37,11 @@ const MyAppointments = () => {
 							<th className='text-sm font-semibold bg-[#e6e6e6]'>Service</th>
 							<th className='text-sm font-semibold bg-[#e6e6e6]'>Date</th>
 							<th className='text-sm font-semibold bg-[#e6e6e6]'>Time</th>
+							<th className='text-sm font-semibold bg-[#e6e6e6]'>Status</th>
 						</tr>
 					</thead>
 					<tbody>
-						{bookings?.length ? bookings?.map((booking, index) => {
-							const { _id, appointmentDate, serviceName, serviceSlot, name } = booking;
-
-							return <tr key={_id}>
-								<th>{index + 1}</th>
-								<td>{name}</td>
-								<td>{serviceName}</td>
-								<td>{appointmentDate}</td>
-								<td>{serviceSlot}</td>
-							</tr>
-						}) : <tr />}
+						{bookings?.length ? bookings?.map((booking, index) => <BookingRow key={booking._id} booking={booking} index={index} />) : <tr />}
 					</tbody>
 				</table>
 			</div>
@@ -56,3 +49,28 @@ const MyAppointments = () => {
 	</main>
 }
 export default MyAppointments;
+
+const BookingRow = ({ booking, index }) => {
+	const { _id, appointmentDate, serviceId, serviceName, serviceSlot, name } = booking;
+
+	const { service, isLoading } = useServiceData(serviceId);
+
+	if (isLoading) {
+		return <tr />
+	}
+
+	return <tr key={_id}>
+		<th>{index + 1}</th>
+		<td>{name}</td>
+		<td>{serviceName}</td>
+		<td>{appointmentDate}</td>
+		<td>{serviceSlot}</td>
+		<td>{
+			service?.price && <>
+				{booking?.paid ?
+					<h3 className='btn gray alt cursor-default'>Paid</h3> :
+					<Link to={`/dashboard/payment/${_id}`} className='btn'>Pay Now</Link>}
+			</>
+		}</td>
+	</tr>
+}

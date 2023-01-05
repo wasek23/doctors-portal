@@ -22,9 +22,12 @@ const AvailableServices = ({ selectedDate, appointmentServices, setSelectedServi
 
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 					{appointmentServices?.map(service => {
-						const { _id, name, slots } = service;
+						const { _id, name, slots, price } = service;
+
 						return <div key={_id} className='text-center p-10 rounded-2xl shadow-lg cursor-pointer' onClick={() => onSelectService(service)}>
 							<h3 className={`text-xl font-semibold text-[var(${slots?.length ? '--green' : '--gray'})]`}>{name}</h3>
+
+							<h6 className='text-base font-semibold mt-4'>Price: ${price}</h6>
 						</div>
 					})}
 				</div>
